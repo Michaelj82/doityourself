@@ -1,31 +1,32 @@
 // create task object
+import { render } from '@testing-library/react';
 import React, {Component} from 'react';
+import App from '../App'
 
-class Task extends Component{
+const Overview = (props) => {
+    const{tasks} = props;
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            title: '',
-            dueDate: '',
-            description: '',
-
-        };
+    function deleting(id, list){
+        for (let i = 0; i < list.length; i++){
+            if (list[i].id == id){
+                list.splice(i, 1)
+            }
+        }
     }
 
-    //example function
-    functionName(){
-        this.setState({
-            count: this.state.count + 1,
-        });
-    }
+    return (
+        <ul>
+            {tasks.map((task) => {
+                return <div>
+                    <li key={task.id}>{task.text}</li>
+                    <button onClick={function(){
+                            deleting(task.id, tasks)
+                        }}>
+                        Delete</button>
+                    </div>
+            })}
+        </ul>
+    );
+};
 
-    render(){
-        return (
-            <div>
-
-            </div>
-        )
-    }
-}
+export default Overview
